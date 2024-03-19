@@ -27,11 +27,11 @@ function NewsCard({ title, description, imageUrl, newsUrl, author, date }) {
         <h5 className="card-title text-slate-50 font-bold text-md ">
           {newtitle}
         </h5>
-        <p className="card-text text-slate-100 text-sm mb-1">{newdesc}</p>
-        <p className=" text-slate-300 text-sm mb-1">
+        <p className="card-text text-slate-200 text-sm mb-1">{newdesc}</p>
+        <p className=" text-slate-400 text-sm mb-1">
           By {author} on {formattedDate}
         </p>
-        <a href={newsUrl} target="blank" className=" text-slate-200">
+        <a href={newsUrl} target="blank" className=" text-slate-200 hover:text-white">
           Read More
         </a>
       </div>
