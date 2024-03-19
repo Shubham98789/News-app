@@ -49,7 +49,7 @@ function Board({ topic }) {
   };
 
   return (
-    <div className=" bg-purple-600">
+    <div className="">
       <h2 className=" font-extrabold text-5xl text-center font-serif">
         Top Headlines of {topic}
       </h2>
@@ -61,7 +61,7 @@ function Board({ topic }) {
         //hasMore={true}
         loader={<h4>Loading...</h4>}
       >
-        <div className="bg-purple-600 flex justify-center items-center flex-wrap overflow-hidden">
+        <div className=" flex justify-center items-center flex-wrap overflow-hidden">
           {newsData.map((element,index) => (
             <NewsCard
               key={index}

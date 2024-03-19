@@ -19,11 +19,11 @@ function NewsCard({ title, description, imageUrl, newsUrl, author, date }) {
   const newdesc = truncateText(description, 4);
 
   return (
-    <div className=" m-4 h-88 w-[320px] flex-col text-slate-500 border-2 border-black rounded-lg p-0">
+    <div className=" m-4 h-88 w-[320px] flex-col text-slate-500 border-2 border-black rounded-lg p-0 z-10">
       <div className="imgdiv  w-full h-28 overflow-hidden rounded-l-lg">
         <img className=" w-full h-full object-cover" src={imageUrl} alt="img" />
       </div>
-      <div className="textCont flex-col justify-around py-1 px-2 blur-lg">
+      <div className="textCont flex-col justify-around py-1 px-2 blur-lg z-10">
         <h5 className="card-title text-slate-800 font-bold text-md ">
           {newtitle}
         </h5>

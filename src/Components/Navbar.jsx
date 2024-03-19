@@ -6,10 +6,14 @@ function Navbar({ toggleSidebar }) {
     <nav className="flex items-center justify-between bg-gray-800 p-4 drop-shadow-lg">
       <div className=" flex ">
         <div className="">
-          <button className="text-white text-2xl z-20" onClick={toggleSidebar}>&#9776;</button>
+          <button className="text-white text-2xl z-20" onClick={toggleSidebar}>
+            &#9776;
+          </button>
         </div>
 
-        <div className="text-white text-lg font-bold font-mono ml-3">Logo Name</div>
+        <div className="text-white text-lg font-bold font-mono ml-3">
+          Logo Name
+        </div>
       </div>
 
       <div className="flex items-center sm:mr-5 mr-1">
@@ -18,7 +22,9 @@ function Navbar({ toggleSidebar }) {
           placeholder="Search..."
           className="px-2 py-1 rounded-lg mr-2"
         />
-        <FaSearch className="text-white" />
+        <button>
+          <FaSearch className="text-white" />
+        </button>
       </div>
     </nav>
     // <nav className="navbar h-14 bg-gray-800 p-3 w-full flex items-center justify-between">
