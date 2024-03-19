@@ -6,24 +6,35 @@ import { Route, Routes } from "react-router-dom";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [click, setClick] = useState(false);
+
+  function handleSearch (query) {
+    setSearchQuery(query);
+  };
+
+  function toggleSubmit (e) {
+    setClick(!click);
+  };
 
   function toggleSidebar() {
     setSidebarOpen(!sidebarOpen);
   }
   return (
-    <div className=" h-full w-full ">
-      <Navbar toggleSidebar={toggleSidebar} />
+    <div className=" h-full w-full bg-purple-950 ">
+      
+      <Navbar toggleSidebar={toggleSidebar}  handleSearch={handleSearch} searchQuery={searchQuery} setSearchQuery={setSearchQuery} setClick={setClick} click={click}/>
       <Sidebar isOpen={sidebarOpen} />
 
       <Routes>
-        <Route path="/" element={<Board topic="Today" />} />
-        <Route path="/Business" element={<Board topic="Business" />} />
-        <Route path="/Entertainment" element={<Board topic="Entertainment" />}/>
-        <Route path="/General" element={<Board topic="General" />} />
-        <Route path="/Health" element={<Board topic="Health" />} />
-        <Route path="/Science" element={<Board topic="Science" />} />
-        <Route path="/Sports" element={<Board topic="Sports" />} />
-        <Route path="/Technology" element={<Board topic="Technology" />} />
+        <Route path="/" element={<Board topic="Today"  searchQuery={searchQuery} click={click} />} />
+        <Route path="/Business" element={<Board topic="Business"  searchQuery={searchQuery} click={click} />} />
+        <Route path="/Entertainment" element={<Board topic="Entertainment"  searchQuery={searchQuery} click={click} />}/>
+        <Route path="/General" element={<Board topic="General"  searchQuery={searchQuery} click={click} />} />
+        <Route path="/Health" element={<Board topic="Health"  searchQuery={searchQuery} click={click} />} />
+        <Route path="/Science" element={<Board topic="Science"  searchQuery={searchQuery} click={click} />} />
+        <Route path="/Sports" element={<Board topic="Sports"  searchQuery={searchQuery} click={click} />} />
+        <Route path="/Technology" element={<Board topic="Technology"  searchQuery={searchQuery} click={click} />} />
       </Routes>
     </div>
   );
