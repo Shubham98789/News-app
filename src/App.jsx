@@ -21,7 +21,7 @@ function App() {
     setSidebarOpen(!sidebarOpen);
   }
   return (
-    <div className=" h-full w-full bg-purple-950 ">
+    <div className=" h-full w-full bg-blue-950 ">
       
       <Navbar toggleSidebar={toggleSidebar}  handleSearch={handleSearch} searchQuery={searchQuery} setSearchQuery={setSearchQuery} setClick={setClick} click={click}/>
       <Sidebar isOpen={sidebarOpen} />

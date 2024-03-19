@@ -28,11 +28,11 @@ function Navbar({ toggleSidebar, handleSearch, searchQuery, setSearchQuery, setC
       </div>
 
       <div className="flex items-center sm:mr-5 mr-1">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="flex flex-grow">
           <input
             type="text"
             placeholder="Search..."
-            className="px-2 py-1 rounded-lg mr-2"
+            className="px-2 py-1 rounded-lg mr-2 w-full sm:w-auto"
             value={searchQuery}
             onChange={handleChange}
           />

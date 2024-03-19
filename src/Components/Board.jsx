@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NewsCard from "./NewsCard";
 import InfiniteScroll from "react-infinite-scroll-component";
+import LoadSpinner from "./Loader/Loading";
 
 function Board({ topic, searchQuery ,click}) {
   const [newsData, setNewsData] = useState([]);
@@ -19,7 +20,7 @@ function Board({ topic, searchQuery ,click}) {
     try {
       let url;
       if (searchQuery) {
-         url = `https://newsapi.org/v2/top-headlines?q=${searchQuery}&category=${catagory}&language=en&apiKey=334dfbb4ede6448a8e7d07bc7210527f&page=${page}&pageSize=12`;
+         url = `https://newsapi.org/v2/top-headlines?q=${searchQuery}&language=en&apiKey=334dfbb4ede6448a8e7d07bc7210527f&page=${page}&pageSize=12`;
       } else {
          url = `https://newsapi.org/v2/top-headlines?category=${catagory}&language=en&apiKey=334dfbb4ede6448a8e7d07bc7210527f&page=${page}&pageSize=12`;
       }
@@ -57,8 +58,8 @@ function Board({ topic, searchQuery ,click}) {
   };
 
   return (
-    <div className=" bg-inherit">
-      <h2 className=" font-extrabold text-5xl text-center font-serif  text-white mt-16 pt-2">
+    <div className=" bg-blue-950">
+      <h2 className=" font-extrabold text-5xl text-center font-serif  text-white sm:mt-16 mt-20 pt-2">
         Top Headlines {searchQuery ? `for ${searchQuery}` : `of ${topic}`}
       </h2>
 
@@ -67,7 +68,7 @@ function Board({ topic, searchQuery ,click}) {
         next={fetchMoreData}
         hasMore={newsData.length !== newsData.totalResults}
         //hasMore={true}
-        loader={<h4>Loading...</h4>}
+        loader={<LoadSpinner/>}
       >
         <div className=" flex justify-center items-center flex-wrap overflow-hidden">
           {newsData.map((element, index) => (
