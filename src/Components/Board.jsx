@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import NewsCard from "./NewsCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LoadSpinner from "./Loader/Loading";
+import Skeleton from "./Skeleton";
 
-function Board({ topic, searchQuery ,click}) {
+function Board({ topic, searchQuery, click }) {
   const [newsData, setNewsData] = useState([]);
   const [page, setpage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   function makeFirstLetterLowercase(inputString) {
     if (inputString.length === 0) {
@@ -20,9 +22,10 @@ function Board({ topic, searchQuery ,click}) {
     try {
       let url;
       if (searchQuery) {
-         url = `https://newsapi.org/v2/top-headlines?q=${searchQuery}&language=en&apiKey=334dfbb4ede6448a8e7d07bc7210527f&page=${page}&pageSize=12`;
+        console.log(searchQuery);
+        url = `https://newsapi.org/v2/top-headlines?q=${searchQuery}&language=en&apiKey=334dfbb4ede6448a8e7d07bc7210527f&page=${page}&pageSize=12`;
       } else {
-         url = `https://newsapi.org/v2/top-headlines?category=${catagory}&language=en&apiKey=334dfbb4ede6448a8e7d07bc7210527f&page=${page}&pageSize=12`;
+        url = `https://newsapi.org/v2/top-headlines?category=${catagory}&language=en&apiKey=334dfbb4ede6448a8e7d07bc7210527f&page=${page}&pageSize=12`;
       }
       const response = await fetch(url);
       console.log("APi is Called");
@@ -31,20 +34,21 @@ function Board({ topic, searchQuery ,click}) {
       }
       const data = await response.json();
       setNewsData(data.articles);
-      
-    }catch (error) {
+      setLoading(false);
+    } catch (error) {
       console.error("Error aya", error);
+      setLoading(false);
     }
   };
   useEffect(() => {
     setNewsData([]);
     setpage(1);
     fetchNews();
-  }, [topic, click]); 
+  }, [topic, click]);
 
   const fetchMoreData = async () => {
     setpage((p) => p + 1);
-    const url = `https://newsapi.org/v2/top-headlines?category=${catagory}&language=en&apiKey=334dfbb4ede6448a8e7d07bc7210527f&page=${page}&pageSize=12`;
+    //const url = `https://newsapi.org/v2/top-headlines?category=${catagory}&language=en&apiKey=334dfbb4ede6448a8e7d07bc7210527f&page=${page}&pageSize=12`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -58,34 +62,39 @@ function Board({ topic, searchQuery ,click}) {
   };
 
   return (
-    <div className=" bg-blue-950">
-      <h2 className=" font-extrabold text-5xl text-center font-serif  text-white sm:mt-16 mt-20 pt-2">
-        Top Headlines {searchQuery ? `for ${searchQuery}` : `of ${topic}`}
-      </h2>
+    <div className=" w-full  bg-gradient-to-l from-black via-blue-950 to-black px-2">
+<h2 className="font-extrabold sm:text-5xl text-3xl text-center font-serif text-white sm:mt-16 mt-20 pt-2" >
+  Top Headlines {searchQuery ? `for ${searchQuery}` : `of ${topic}`}
+</h2>
+
 
       <InfiniteScroll
         dataLength={newsData.length}
         next={fetchMoreData}
         hasMore={newsData.length !== newsData.totalResults}
         //hasMore={true}
-        loader={<LoadSpinner/>}
+        //loader={<LoadSpinner />}
       >
         <div className=" flex justify-center items-center flex-wrap overflow-hidden">
-          {newsData.map((element, index) => (
-            <NewsCard
-              key={index}
-              title={element.title ? element.title : " "}
-              description={element.description ? element.description : " "}
-              imageUrl={
-                element.urlToImage
-                  ? element.urlToImage
-                  : "https://images.indianexpress.com/2023/11/IND-NED.png"
-              }
-              newsUrl={element.url}
-              author={element.author ? element.author : "Unknown"}
-              date={element.publishedAt}
-            />
-          ))}
+          {newsData.map((element, index) =>
+            loading ? (
+              <Skeleton key={index} />
+            ) : (
+              <NewsCard
+                key={index}
+                title={element.title ? element.title : " "}
+                description={element.description ? element.description : " "}
+                imageUrl={
+                  element.urlToImage
+                    ? element.urlToImage
+                    : "https://images.indianexpress.com/2023/11/IND-NED.png"
+                }
+                newsUrl={element.url}
+                author={element.author ? element.author : "Unknown"}
+                date={element.publishedAt}
+              />
+            )
+          )}
         </div>
       </InfiniteScroll>
     </div>

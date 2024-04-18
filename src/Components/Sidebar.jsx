@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 function Sidebar({ isOpen }) {
   return isOpen ? (
-    <div className="bg-gray-800 w-full md:w-[200px]  h-full fixed top-0 left-0 overflow-y-auto z-90 mt-16">
-      <ul className="py-4 flex items-center flex-col mt-3">
+    <div className="bg-black w-full sm:w-72  h-full fixed top-0 left-0 overflow-y-auto shadow-2xl z-90 mt-16">
+      <ul className="py-4 flex items-center flex-col text-lg mt-3">
         <Link to="/"><li className=" text-slate-300 py-2 font-semibold hover:text-white cursor-pointer">Home</li></Link>
         <Link to="/Business"><li className=" text-slate-300 py-2 font-semibold hover:text-white cursor-pointer">Business</li></Link>
         <Link to="/Entertainment"><li className=" text-slate-300 py-2 font-semibold hover:text-white cursor-pointer">Entertainment</li></Link>
