@@ -20,6 +20,7 @@ function Board({ topic, searchQuery, click }) {
 
   const fetchNews = async () => {
     try {
+      setLoading(true);
       let url;
       if (searchQuery) {
         console.log(searchQuery);
@@ -29,6 +30,8 @@ function Board({ topic, searchQuery, click }) {
       }
       const response = await fetch(url);
       console.log("APi is Called");
+
+      console.log(loading)
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
@@ -36,8 +39,7 @@ function Board({ topic, searchQuery, click }) {
       setNewsData(data.articles);
       setLoading(false);
     } catch (error) {
-      console.error("Error aya", error);
-      setLoading(false);
+      console.error("Error occured", error);
     }
   };
   useEffect(() => {
@@ -48,7 +50,7 @@ function Board({ topic, searchQuery, click }) {
 
   const fetchMoreData = async () => {
     setpage((p) => p + 1);
-    //const url = `https://newsapi.org/v2/top-headlines?category=${catagory}&language=en&apiKey=334dfbb4ede6448a8e7d07bc7210527f&page=${page}&pageSize=12`;
+    const url = `https://newsapi.org/v2/top-headlines?category=${catagory}&language=en&apiKey=334dfbb4ede6448a8e7d07bc7210527f&page=${page}&pageSize=12`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -63,23 +65,25 @@ function Board({ topic, searchQuery, click }) {
 
   return (
     <div className=" w-full  bg-gradient-to-l from-black via-blue-950 to-black px-2">
-<h2 className="font-extrabold sm:text-5xl text-3xl text-center font-serif text-white sm:mt-16 mt-20 pt-2" >
-  Top Headlines {searchQuery ? `for ${searchQuery}` : `of ${topic}`}
-</h2>
-
+      <h2 className="font-extrabold sm:text-5xl text-3xl text-center font-serif text-white sm:mt-16 mt-20 pt-2">
+        Top Headlines {searchQuery ? `for ${searchQuery}` : `of ${topic}`}
+      </h2>
 
       <InfiniteScroll
         dataLength={newsData.length}
         next={fetchMoreData}
         hasMore={newsData.length !== newsData.totalResults}
         //hasMore={true}
-        //loader={<LoadSpinner />}
       >
         <div className=" flex justify-center items-center flex-wrap overflow-hidden">
           {newsData.map((element, index) =>
             loading ? (
-              <Skeleton key={index} />
+              <>
+                {console.log(loading)}
+                <Skeleton key={index} />
+              </>
             ) : (
+              <>
               <NewsCard
                 key={index}
                 title={element.title ? element.title : " "}
@@ -87,12 +91,12 @@ function Board({ topic, searchQuery, click }) {
                 imageUrl={
                   element.urlToImage
                     ? element.urlToImage
-                    : "https://images.indianexpress.com/2023/11/IND-NED.png"
+                    : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM4sEG5g9GFcy4SUxbzWNzUTf1jMISTDZrTw&s"
                 }
                 newsUrl={element.url}
                 author={element.author ? element.author : "Unknown"}
                 date={element.publishedAt}
-              />
+              /></>
             )
           )}
         </div>
